@@ -83,6 +83,16 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         }
     ),
 
+    html.Div(style={
+        'textAlign': 'left',
+        'color': colors['text'],
+        'width': '600', 'height': '600'
+        },
+        children=[
+            html.Iframe(style={'border': 'none', 'width': '100%', 'height': '100%'},srcDoc='<style>.embed-container {position: relative; padding-bottom: 80%; height: 0; max-width: 100%;} .embed-container iframe, .embed-container object, .embed-container iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;} small{position: absolute; z-index: 40; bottom: 0; margin-bottom: -15px;}</style><div class="embed-container"><iframe width="500" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="pop health" src="//www.arcgis.com/apps/Embed/index.html?webmap=f66e9be609df4049967e36c1de32f128&amp;extent=-123.1827,35.4058,-116.0966,37.8868&zoom=true&previewImage=false&scale=true&legend=true&disable_scroll=true&theme=light"></iframe></div>'),
+        ]
+    ),
+
     # dcc.Graph(
     #     id='pov-emissions-map',
     #     figure={
@@ -132,11 +142,12 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         }
     ),
 
-    html.Div([
-        dash_dangerously_set_inner_html.DangerouslySetInnerHTML('''
-            <style>.embed-container {position: relative; padding-bottom: 80%; height: 0; max-width: 100%;} .embed-container iframe, .embed-container object, .embed-container iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;} small{position: absolute; z-index: 40; bottom: 0; margin-bottom: -15px;}</style><div class="embed-container"><iframe width="500" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="pop health" src="//www.arcgis.com/apps/Embed/index.html?webmap=f66e9be609df4049967e36c1de32f128&amp;extent=-123.1827,35.4058,-116.0966,37.8868&zoom=true&previewImage=false&scale=true&legend=true&disable_scroll=true&theme=light"></iframe></div>
-        '''),
-    ]),
+
+    # html.Div([
+    #     dash_dangerously_set_inner_html.DangerouslySetInnerHTML('''
+    #         <style>.embed-container {position: relative; padding-bottom: 80%; height: 0; max-width: 100%;} .embed-container iframe, .embed-container object, .embed-container iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;} small{position: absolute; z-index: 40; bottom: 0; margin-bottom: -15px;}</style><div class="embed-container"><iframe width="500" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="pop health" src="//www.arcgis.com/apps/Embed/index.html?webmap=f66e9be609df4049967e36c1de32f128&amp;extent=-123.1827,35.4058,-116.0966,37.8868&zoom=true&previewImage=false&scale=true&legend=true&disable_scroll=true&theme=light"></iframe></div>
+    #     '''),
+    # ]),
 
     dcc.Markdown(children=markdown_text)
 ])
