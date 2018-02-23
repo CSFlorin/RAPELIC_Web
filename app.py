@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 import dash
+from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
 import os
 
 import pandas as pd
+from pandas_datareader import data as web
 import geopandas as gpd
 
 app = dash.Dash(__name__)
@@ -15,14 +17,11 @@ app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"
 
 colors = {
     'background': '#FFFFFF',
-    'text': '#7FDBFF'
+    'text': '#333333',
+    'H1': '#222222',
+    'H2': '#b489d1',
+    'H3': '#4DA3F6'
 }
-
-df = pd.read_csv(
-    'https://gist.githubusercontent.com/chriddyp/' +
-    '5d1ea79569ed194d432e56108a04d188/raw/' +
-    'a9f9e8076b837d541398e999dcbac2b2826a81f8/'+
-    'gdp-life-exp-2007.csv')
 
 gdf = gpd.read_file('data/pov_emissionsFresno.shp')
 
@@ -33,25 +32,25 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         children='CEC 2020',
         style={
             'textAlign': 'left',
-            'color': colors['text']
+            'color': colors['H1']
         }
     ),
 
-    html.Div(children='', style={
-        'textAlign': 'left',
-        'color': colors['text']
-    }),
+    # html.Div(children='', style={
+    #     'textAlign': 'left',
+    #     'color': colors['text']
+    # }),
 
-    html.H3(children='Fresno Poverty Percentile to PM2.5 Emissions Scatter Plot', style={
+    html.H3(children='Poverty Percentile to PM2.5 Emissions Scatter Plot', style={
         'textAlign': 'left',
-        'color': colors['text']
+        'color': colors['H3']
     }),
 
     dcc.Dropdown(
         id='pov-emissions-dropdown',
         options=[
             {'label': 'Fresno', 'value': 'Fresno'},
-            {'label': 'Los Angeles', 'value': 'Los Angeles'}
+            {'label': 'Los Angeles', 'value': 'LA'}
         ],
         value='Fresno'
     ),
@@ -83,32 +82,37 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         }
     ),
 
-    dcc.Graph(
-        id='pov-emissions-map',
-        figure={
-            'data': [
-                go.Choropleth(
-                    locationmode = "ISO-3",
-                    locations = gdf[gdf['Tract_1'] == i]['Tract_1'],
-                    z = gdf[gdf['Tract_1'] == i]['PM2.5T'],
-                    text = gdf[gdf['Tract_1'] == i]['Tract_1'],
-                    colorscale = [[0,'rgb(0, 0, 0)'],[1,'rgb(0, 0, 0)']],
-                    autocolorscale = False,
-                    showscale = False,
-                    # geo = 'geo2'
-                    geo = gdf[gdf['Tract_1'] == i]['geometry'].to_json()
-                ) for i in gdf.Tract_1.unique()
-            ]
-            # 'layout': go.Layout(
-            #     xaxis={'type': 'log', 'title': 'Poverty Percentile (Statewide)'},
-            #     yaxis={'title': 'PM2.5 (Raw)'},
-            #     margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
-            #     legend={'x': 0, 'y': 1},
-            #     hovermode='closest',
-            #     title=''
-            # )
-        }
-    ),
+    # dcc.Graph(
+    #     id='pov-emissions-map',
+    #     figure={
+    #         'data': [
+    #             go.Choropleth(
+    #                 locationmode = "ISO-3",
+    #                 locations = gdf[gdf['Tract_1'] == i]['Tract_1'],
+    #                 z = gdf[gdf['Tract_1'] == i]['PM2.5T'],
+    #                 text = gdf[gdf['Tract_1'] == i]['Tract_1'],
+    #                 colorscale = [[0,'rgb(0, 0, 0)'],[1,'rgb(0, 0, 0)']],
+    #                 autocolorscale = False,
+    #                 showscale = False,
+    #                 # geo = 'geo2'
+    #                 geo = gdf[gdf['Tract_1'] == i]['geometry'].to_json()
+    #             ) for i in gdf.Tract_1.unique()
+    #         ]
+    #         # 'layout': go.Layout(
+    #         #     xaxis={'type': 'log', 'title': 'Poverty Percentile (Statewide)'},
+    #         #     yaxis={'title': 'PM2.5 (Raw)'},
+    #         #     margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+    #         #     legend={'x': 0, 'y': 1},
+    #         #     hovermode='closest',
+    #         #     title=''
+    #         # )
+    #     }
+    # ),
+
+    html.H3(children='Example', style={
+        'textAlign': 'left',
+        'color': colors['H3']
+    }),
 
     dcc.Graph(
         id='example-graph-2',
@@ -127,46 +131,44 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         }
     ),
 
-    dcc.Graph(
-        id='life-exp-vs-gdp',
-        figure={
-            'data': [
-                go.Scatter(
-                    x=df[df['continent'] == i]['gdp per capita'],
-                    y=df[df['continent'] == i]['life expectancy'],
-                    text=df[df['continent'] == i]['country'],
-                    mode='markers',
-                    opacity=0.7,
-                    marker={
-                        'size': 15,
-                        'line': {'width': 0.5, 'color': 'white'}
-                    },
-                    name=i
-                ) for i in df.continent.unique()
-            ],
-            'layout': go.Layout(
-                xaxis={'type': 'log', 'title': 'GDP Per Capita'},
-                yaxis={'title': 'Life Expectancy'},
-                margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
-                legend={'x': 0, 'y': 1},
-                hovermode='closest'
-            )
-        }
-    ),
-
     dcc.Markdown(children=markdown_text)
 ])
 
 @app.callback(Output('pov-emissions', 'figure'), [Input('pov-emissions-dropdown', 'value')])
 def update_graph(selected_dropdown_value):
-    df = web.DataReader(
-        selected_dropdown_value, data_source='google',
-        start=dt(2017, 1, 1), end=dt.now())
+    gdf = gpd.read_file('data/pov_emissions' + selected_dropdown_value + '.shp')
+
+        # web.DataReader(
+        # selected_dropdown_value, data_source='google',
+        # start=dt(2017, 1, 1), end=dt.now()
+        # )
     return {
-        'data': [{
-            'x': df.index,
-            'y': df.Close
-        }]
+        'data': [
+            go.Scatter(
+                x=gdf[gdf['Tract_1'] == i]['Pov_pctl'],
+                y=gdf[gdf['Tract_1'] == i]['PM2.5T'],
+                # text=gdf[gdf['Tract_1'] == i]['Tract_1'],
+                mode='markers',
+                opacity=0.7,
+                marker={
+                    'size': 15,
+                    'line': {'width': 0.5, 'color': 'white'}
+                },
+                name=i
+            ) for i in gdf.Tract_1.unique()
+        # {
+        #     'x': gdf[gdf['Tract_1'] == i]['Pov_pctl'],
+        #     'y': gdf[gdf['Tract_1'] == i]['PM2.5T']
+        # }
+        ],
+        'layout': go.Layout(
+            xaxis={'type': 'log', 'title': 'Poverty Percentile (Statewide)'},
+            yaxis={'title': 'PM2.5 (Raw)'},
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            legend={'x': 0, 'y': 1},
+            hovermode='closest',
+            # title='\nFresno Poverty Percentile to PM2.5 Emissions Scatter Plot'
+        )
     }
 
 if __name__ == '__main__':
