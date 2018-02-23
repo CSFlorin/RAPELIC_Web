@@ -32,16 +32,29 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
     html.H1(
         children='CEC 2020',
         style={
-            'textAlign': 'center',
+            'textAlign': 'left',
             'color': colors['text']
         }
     ),
 
-    html.Div(children='Fresno Poverty Percentile to PM2.5 Emissions Scatter Plot', style={
-        'textAlign': 'center',
+    html.Div(children='', style={
+        'textAlign': 'left',
         'color': colors['text']
     }),
 
+    html.H3(children='Fresno Poverty Percentile to PM2.5 Emissions Scatter Plot', style={
+        'textAlign': 'left',
+        'color': colors['text']
+    }),
+
+    dcc.Dropdown(
+        id='pov-emissions-dropdown',
+        options=[
+            {'label': 'Fresno', 'value': 'Fresno'},
+            {'label': 'Los Angeles', 'value': 'Los Angeles'}
+        ],
+        value='Fresno'
+    ),
     dcc.Graph(
         id='pov-emissions',
         figure={
@@ -143,6 +156,18 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
 
     dcc.Markdown(children=markdown_text)
 ])
+
+@app.callback(Output('pov-emissions', 'figure'), [Input('pov-emissions-dropdown', 'value')])
+def update_graph(selected_dropdown_value):
+    df = web.DataReader(
+        selected_dropdown_value, data_source='google',
+        start=dt(2017, 1, 1), end=dt.now())
+    return {
+        'data': [{
+            'x': df.index,
+            'y': df.Close
+        }]
+    }
 
 if __name__ == '__main__':
     app.run_server(debug=True)
