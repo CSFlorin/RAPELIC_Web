@@ -14,7 +14,8 @@ import geopandas as gpd
 app = dash.Dash(__name__)
 server = app.server
 
-app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
+app.css.append_css({"external_url": "https://fonts.googleapis.com/css?family=Prata"})
+app.css.append_css({"external_url": "style.css"})
 
 colors = {
     'background': '#FFFFFF',
