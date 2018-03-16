@@ -15,8 +15,8 @@ app = dash.Dash(__name__)
 server = app.server
 
 app.css.append_css({"external_url": "https://fonts.googleapis.com/css?family=Prata"})
-# app.css.append_css({"external_url": "https://cdn.rawgit.com/CSFlorin/RAPELIC_Web/master/style.css"})
-app.css.append_css({"external_url": "https://rawgit.com/CSFlorin/RAPELIC_Web/master/style.css"})
+app.css.append_css({"external_url": "https://cdn.rawgit.com/CSFlorin/RAPELIC_Web/master/style.css"})
+# app.css.append_css({"external_url": "https://rawgit.com/CSFlorin/RAPELIC_Web/master/style.css"})
 # dcc._css_dist[0]['relative_package_path'].append('style.css')
 
 
@@ -169,7 +169,7 @@ app.layout = html.Div(className="everything", style={'backgroundColor': colors['
                             'textAlign': 'left',
                             'color': colors['text'],
                             # 'width': '40%',
-                            'height': '500'
+                            'height': '400'
                             },
                             children=[
                                 html.Iframe(style={'border': 'none', 'width': '100%', 'height': '100%'},srcDoc='<style>.embed-container {position: relative; padding-bottom: 67%; height: 0; max-width: 100%;} .embed-container iframe, .embed-container object, .embed-container iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;} small{position: absolute; z-index: 40; bottom: 0; margin-bottom: -15px;}</style><div class="embed-container"><iframe width="600" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="pop health" src="//www.arcgis.com/apps/Embed/index.html?webmap=f66e9be609df4049967e36c1de32f128&amp;extent=-123.1827,35.4058,-116.0966,37.8868&zoom=true&previewImage=false&scale=true&legend=true&disable_scroll=true&theme=light"></iframe></div>'),
