@@ -48,69 +48,74 @@ app.layout = html.Div(className="everything", style={'backgroundColor': colors['
             'color': colors['black']
         }
     ),
-
     html.Div(
-        className="row",
+        className="article",
         children=[
             html.Div(
-                className="six columns",
+                className="row",
                 children=[
                     html.Div(
-                        children=dcc.Graph(
-                            id='left-graph',
-                            figure={
-                                'data': [{
-                                    'x': [1, 2, 3],
-                                    'y': [3, 1, 2],
-                                    'type': 'bar'
-                                }],
-                                'layout': {
-                                    'height': 800,
-                                    'margin': {
-                                        'l': 10, 'b': 20, 't': 0, 'r': 0
+                        className="six columns",
+                        children=[
+                            html.Div(
+                                children=dcc.Graph(
+                                    id='left-graph',
+                                    figure={
+                                        'data': [{
+                                            'x': [1, 2, 3],
+                                            'y': [3, 1, 2],
+                                            'type': 'bar'
+                                        }],
+                                        'layout': {
+                                            'height': 800,
+                                            'margin': {
+                                                'l': 10, 'b': 20, 't': 0, 'r': 0
+                                            }
+                                        }
+                                    }
+                                )
+                            )
+                        ]
+                    ),
+                    html.Div(
+                        className="six columns",
+                        children=html.Div([
+                            dcc.Graph(
+                                id='right-top-graph',
+                                figure={
+                                    'data': [{
+                                        'x': [1, 2, 3],
+                                        'y': [3, 1, 2],
+                                        'type': 'bar'
+                                    }],
+                                    'layout': {
+                                        'height': 400,
+                                        'margin': {'l': 10, 'b': 20, 't': 0, 'r': 0}
                                     }
                                 }
-                            }
-                        )
+                            ),
+                            dcc.Graph(
+                                id='right-bottom-graph',
+                                figure={
+                                    'data': [{
+                                        'x': [1, 2, 3],
+                                        'y': [3, 1, 2],
+                                        'type': 'bar'
+                                    }],
+                                    'layout': {
+                                        'height': 400,
+                                        'margin': {'l': 10, 'b': 20, 't': 0, 'r': 0}
+                                    }
+                                }
+                            ),
+
+                        ])
                     )
                 ]
-            ),
-            html.Div(
-                className="six columns",
-                children=html.Div([
-                    dcc.Graph(
-                        id='right-top-graph',
-                        figure={
-                            'data': [{
-                                'x': [1, 2, 3],
-                                'y': [3, 1, 2],
-                                'type': 'bar'
-                            }],
-                            'layout': {
-                                'height': 400,
-                                'margin': {'l': 10, 'b': 20, 't': 0, 'r': 0}
-                            }
-                        }
-                    ),
-                    dcc.Graph(
-                        id='right-bottom-graph',
-                        figure={
-                            'data': [{
-                                'x': [1, 2, 3],
-                                'y': [3, 1, 2],
-                                'type': 'bar'
-                            }],
-                            'layout': {
-                                'height': 400,
-                                'margin': {'l': 10, 'b': 20, 't': 0, 'r': 0}
-                            }
-                        }
-                    ),
-
-                ])
             )
         ]
     ),
+
 
     # html.Div(children='', style={
     #     'textAlign': 'left',
