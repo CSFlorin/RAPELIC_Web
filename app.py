@@ -14,13 +14,14 @@ import geopandas as gpd
 app = dash.Dash(__name__)
 server = app.server
 
-app.css.append_css({"external_url": "https://fonts.googleapis.com/css?family=Prata"})
-app.css.append_css({"external_url": "https://raw.githubusercontent.com/CSFlorin/RAPELIC_Web/master/style.css", "type": "text/css"})
+# app.css.append_css({"external_url": "https://fonts.googleapis.com/css?family=Prata"})
+# app.css.append_css({"external_url": "https://cdn.rawgit.com/CSFlorin/RAPELIC_Web/master/style.css"})
+app.css.append_css({"external_url": "https://rawgit.com/CSFlorin/RAPELIC_Web/master/style.css"})
 
 colors = {
     'background': '#FFFFFF',
     'text': '#333333',
-    'H1': '#222222',
+    'H1': '#3E3E3E',
     'H2': '#b489d1',
     'H3': '#4DA3F6'
 }
