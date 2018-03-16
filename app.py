@@ -15,7 +15,7 @@ app = dash.Dash(__name__)
 server = app.server
 
 app.css.append_css({"external_url": "https://fonts.googleapis.com/css?family=Prata"})
-app.css.append_css({"external_url": "https://raw.githubusercontent.com/CSFlorin/RAPELIC_Web/master/style.css"})
+app.css.append_css({"external_url": "https://raw.githubusercontent.com/CSFlorin/RAPELIC_Web/master/style.css", "type": "text/css"})
 
 colors = {
     'background': '#FFFFFF',
