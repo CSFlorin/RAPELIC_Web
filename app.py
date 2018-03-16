@@ -14,14 +14,16 @@ import geopandas as gpd
 app = dash.Dash(__name__)
 server = app.server
 
-# app.css.append_css({"external_url": "https://fonts.googleapis.com/css?family=Prata"})
+app.css.append_css({"external_url": "https://fonts.googleapis.com/css?family=Prata"})
 # app.css.append_css({"external_url": "https://cdn.rawgit.com/CSFlorin/RAPELIC_Web/master/style.css"})
 app.css.append_css({"external_url": "https://rawgit.com/CSFlorin/RAPELIC_Web/master/style.css"})
+# dcc._css_dist[0]['relative_package_path'].append('style.css')
+
 
 colors = {
     'background': '#FFFFFF',
     'text': '#333333',
-    'H1': '#3E3E3E',
+    'black': '#3E3E3E',
     'H2': '#b489d1',
     'H3': '#4DA3F6'
 }
@@ -31,13 +33,83 @@ gdf2 = gpd.read_file('data/pov_emissionsFresno_0.shp')
 
 markdown_text = '.'
 
-app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+app.layout = html.Div(className="everything", style={'backgroundColor': colors['background']}, children=[
     html.H1(
-        children='CEC 2020',
+        children='Pollution Health Damages Reduction in California',
         style={
-            'textAlign': 'left',
-            'color': colors['H1']
+            'textAlign': 'center',
+            'color': colors['black']
         }
+    ),
+    html.P(
+        children='By FLORIN LANGER | Reporting from Berkeley, Calif.',
+        style={
+            'textAlign': 'center',
+            'color': colors['black']
+        }
+    ),
+
+    html.Div(
+        className="row",
+        children=[
+            html.Div(
+                className="six columns",
+                children=[
+                    html.Div(
+                        children=dcc.Graph(
+                            id='left-graph',
+                            figure={
+                                'data': [{
+                                    'x': [1, 2, 3],
+                                    'y': [3, 1, 2],
+                                    'type': 'bar'
+                                }],
+                                'layout': {
+                                    'height': 800,
+                                    'margin': {
+                                        'l': 10, 'b': 20, 't': 0, 'r': 0
+                                    }
+                                }
+                            }
+                        )
+                    )
+                ]
+            ),
+            html.Div(
+                className="six columns",
+                children=html.Div([
+                    dcc.Graph(
+                        id='right-top-graph',
+                        figure={
+                            'data': [{
+                                'x': [1, 2, 3],
+                                'y': [3, 1, 2],
+                                'type': 'bar'
+                            }],
+                            'layout': {
+                                'height': 400,
+                                'margin': {'l': 10, 'b': 20, 't': 0, 'r': 0}
+                            }
+                        }
+                    ),
+                    dcc.Graph(
+                        id='right-bottom-graph',
+                        figure={
+                            'data': [{
+                                'x': [1, 2, 3],
+                                'y': [3, 1, 2],
+                                'type': 'bar'
+                            }],
+                            'layout': {
+                                'height': 400,
+                                'margin': {'l': 10, 'b': 20, 't': 0, 'r': 0}
+                            }
+                        }
+                    ),
+
+                ])
+            )
+        ]
     ),
 
     # html.Div(children='', style={
