@@ -3,6 +3,8 @@
 ## Running Locally
 `source venv/bin/activate`
 
+`pip install -r requirements.txt`
+
 `python app.py`
 
 ## Pushing live
@@ -10,5 +12,5 @@
 
 `git push heroku master`
 
-## Pusing to GitHub
+## Pushing to GitHub
 `git push -u origin master`

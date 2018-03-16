@@ -23,8 +23,8 @@ app.css.append_css({"external_url": "https://rawgit.com/CSFlorin/RAPELIC_Web/mas
 colors = {
     'background': '#FFFFFF',
     'text': '#333333',
-    'black': '#3E3E3E',
-    'H2': '#b489d1',
+    'gray': '#3E3E3E',
+    'black': '#2E2E2E',
     'H3': '#4DA3F6'
 }
 
@@ -38,14 +38,14 @@ app.layout = html.Div(className="everything", style={'backgroundColor': colors['
         children='Pollution Health Damages Reduction in California',
         style={
             'textAlign': 'center',
-            'color': colors['black']
+            'color': colors['gray']
         }
     ),
     html.P(
         children='By FLORIN LANGER | Reporting from Berkeley, Calif.',
         style={
             'textAlign': 'center',
-            'color': colors['black']
+            'color': colors['gray']
         }
     ),
     html.Div(
@@ -58,7 +58,8 @@ app.layout = html.Div(className="everything", style={'backgroundColor': colors['
                         className="six columns",
                         children=[
                             html.Div(
-                                children=dcc.Graph(
+                                children=
+                                dcc.Graph(
                                     id='left-graph',
                                     figure={
                                         'data': [{
@@ -117,15 +118,9 @@ app.layout = html.Div(className="everything", style={'backgroundColor': colors['
     ),
 
 
-    # html.Div(children='', style={
-    #     'textAlign': 'left',
-    #     'color': colors['text']
-    # }),
-
-
-    html.H3(children='Poverty Percentile to PM2.5 Emissions Scatter Plot over Blockgroups', style={
+    html.H4(children='Poverty Percentile to PM2.5 Emissions Scatter Plot over Blockgroups', style={
         'textAlign': 'left',
-        'color': colors['H3']
+        'color': colors['black']
     }),
     dcc.Dropdown(
         id='pov-emissions-dropdown',
@@ -164,9 +159,9 @@ app.layout = html.Div(className="everything", style={'backgroundColor': colors['
     ),
 
 
-    html.H3(children='Poverty to Asthma Percentile PM2.5 Scatter Plot over Blockgroups', style={
+    html.H4(children='Poverty to Asthma Percentile PM2.5 Scatter Plot over Blockgroups', style={
         'textAlign': 'left',
-        'color': colors['H3']
+        'color': colors['black']
     }),
     dcc.Dropdown(
         id='pov-emissions-dropdown2',
